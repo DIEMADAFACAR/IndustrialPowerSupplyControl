@@ -7,7 +7,6 @@ client = TestClient(app)
 
 class TestMain(unittest.TestCase):
     async def test_status_route(self):
-        # Проверяем маршрут /status
         response = await client.get("/status")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers["content-type"], "application/json")
@@ -24,21 +23,18 @@ class TestMain(unittest.TestCase):
             self.assertIn("current", data["status"][key])
 
     async def test_enable_channel_route(self):
-        # Проверяем маршрут /enable_channel/{channel}
         response = await client.post("/enable_channel/1", json={"voltage": 5.0, "current": 2.0})
         self.assertEqual(response.status_code, 200)
         data = response.json()
         self.assertEqual(data, {"message": "Channel 1 is enabled."})
 
     async def test_disable_channel_route(self):
-        # Проверяем маршрут /disable_channel/{channel}
         response = await client.post("/disable_channel/1")
         self.assertEqual(response.status_code, 200)
         data = response.json()
         self.assertEqual(data, {"message": "Channel 1 is disabled."})
 
     async def test_enable_channel_invalid_data(self):
-        # Проверяем маршрут /enable_channel/{channel} с недопустимыми данными
         response = await client.post("/enable_channel/1", json={"voltage": -5.0, "current": 2.0})
         self.assertEqual(response.status_code, 422)
         data = response.json()
@@ -47,13 +43,11 @@ class TestMain(unittest.TestCase):
         self.assertIn("current", data["detail"][0]["ctx"]["field_errors"])
 
     async def test_enable_channel_connection_error(self):
-        # Проверяем маршрут /enable_channel/{channel} при ошибке соединения
         with unittest.mock.patch('app.main.PowerSupply.is_connected', return_value=False):
             response = await client.post("/enable_channel/1", json={"voltage": 5.0, "current": 2.0})
         self.assertEqual(response.status_code, 500)
 
     async def test_enable_channel_error(self):
-        # Проверяем маршрут /enable_channel/{channel} при ошибке настройки канала
         with unittest.mock.patch('app.main.PowerSupply.is_connected', return_value=True):
             with unittest.mock.patch('app.main.PowerSupply.set_channel_voltage', side_effect=Exception("Test error")):
                 response = await client.post("/enable_channel/1", json={"voltage": 5.0, "current": 2.0})

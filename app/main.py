@@ -8,9 +8,6 @@ power_supply = PowerSupply(host="your_power_supply_ip", port="")
 
 
 async def poll_telemetry():
-    """
-    Периодически опрашивает источник питания и логирует данные.
-    """
     try:
         while True:
             await power_supply.poll_telemetry()

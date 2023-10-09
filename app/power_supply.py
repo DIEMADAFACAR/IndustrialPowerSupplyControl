@@ -15,7 +15,7 @@ logger.addHandler(file_handler)
 
 
 class PowerSupply:
-    # Определяем константы здесь
+    # Определение констант
     SET_CURRENT_COMMAND_TEMPLATE = ":MEASure{channel}:CURRent {current}\n"
     SET_VOLTAGE_COMMAND_TEMPLATE = ":MEASure{channel}:VOLTage {voltage}\n"
     ENABLE_OUTPUT_COMMAND_TEMPLATE = ":OUTPut{channel}:STATe 1\n"
