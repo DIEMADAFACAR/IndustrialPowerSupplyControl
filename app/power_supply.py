@@ -2,7 +2,12 @@ import asyncio
 import json
 import socket
 import logging
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+POWER_SUPPLY_HOST = os.getenv("POWER_SUPPLY_HOST")
+POWER_SUPPLY_PORT = os.getenv("POWER_SUPPLY_PORT")
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -25,7 +30,7 @@ class PowerSupply:
     POWER_QUERY_COMMAND_TEMPLATE = ":MEASure{channel}:POWEr?\n"
     ALL_CHANNEL_STATUS_QUERY_COMMAND = ":MEASure1:ALL?,MEASure2:ALL?,MEASure3:ALL?,MEASure4:ALL?\n"
 
-    def __init__(self, host, port):
+    def __init__(self, host=POWER_SUPPLY_HOST, port=POWER_SUPPLY_PORT):
         self.host = host
         self.port = port
         self.connection = None
@@ -80,13 +85,13 @@ class PowerSupply:
         try:
             await self.send_command(f":OUTPut{channel}:STATe 1\n")
         except Exception as e:
-            logger.error(f"Error while enabling output for channel {channel}: {e}")
+            logger.exception(f"Error while enabling output for channel {channel}: {e}")
 
     async def disable_channel_output(self, channel):
         try:
             await self.send_command(f":OUTPut{channel}:STATe 0\n")
         except Exception as e:
-            logger.error(f"Error while disabling output for channel {channel}: {e}")
+            logger.exception(f"Error while disabling output for channel {channel}: {e}")
 
     async def query_voltage(self, channel):
         try:

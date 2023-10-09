@@ -1,17 +1,19 @@
-import unittest
-from unittest.mock import MagicMock
-import asyncio
+import asynctest
+from unittest.mock import patch, MagicMock
 from app.power_supply import PowerSupply
 
-class TestPowerSupply(unittest.TestCase):
-    def setUp(self):
+
+class TestPowerSupply(asynctest.TestCase):
+    @patch('app.power_supply.PowerSupply.connect')
+    async def test_set_channel_current(self, mock_connect):
+        mock_connect.return_value = None
+        await self.power_supply.set_channel_current(1, 5)
+        self.mock_connection.send.assert_called_with(":MEASure1:CURRent 5\n")
+
+    async def setUp(self):
         self.mock_connection = MagicMock()
         self.power_supply = PowerSupply(host="mock_host", port=12345)
         self.power_supply.connection = self.mock_connection
-
-    async def test_set_channel_current(self):
-        await self.power_supply.set_channel_current(1, 5)
-        self.mock_connection.send.assert_called_with(":MEASure1:CURRent 5\n")
 
     async def test_set_channel_voltage(self):
         await self.power_supply.set_channel_voltage(2, 10)
@@ -69,8 +71,4 @@ class TestPowerSupply(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    try:
-        loop.run_until_complete(unittest.main())
-    finally:
-        loop.close()
+    asynctest.main()
