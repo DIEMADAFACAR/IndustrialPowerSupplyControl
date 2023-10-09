@@ -1,0 +1,3 @@
+2023-10-09 16:25:41,550 - Failed to connect to the power supply: Connection error
+2023-10-09 16:25:41,613 - Error while receiving response from the power supply: 'str' object has no attribute 'decode'
+2023-10-09 16:25:41,613 - Error while querying all channel status: 'NoneType' object has no attribute 'split'
