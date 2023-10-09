@@ -11,9 +11,9 @@ API для управления и мониторинга источника п�
   - telemetry_logger.py
 - tests/ - тесты
   - test_api.py
+  - test_main.py
   - test_power_supply.py
   - test_telemetry_logger.py
-  - test_main.py
 - requirements.txt
 - README.md
 
