@@ -7,7 +7,6 @@ class TestTelemetryLogger(unittest.TestCase):
     @patch('app.telemetry_logger.logging.FileHandler')
     @patch('app.telemetry_logger.logging.getLogger')
     async def test_logging(self, mock_get_logger, mock_file_handler):
-        # Testing logging
         mock_logger = MagicMock()
         mock_get_logger.return_value = mock_logger
         log_message = "Test log message"
