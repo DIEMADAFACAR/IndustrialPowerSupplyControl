@@ -1,3 +1,4 @@
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/:packageName)
 # Источник питания API
 
 API для управления и мониторинга источника питания
