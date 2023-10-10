@@ -105,7 +105,7 @@ class PowerSupply:
         try:
             await self.send_command(f":MEASure{channel}:CURRent?\n")
             response = await self.receive_response()
-            return float(response)  # Парсинг ответа в float
+            return float(response)
         except Exception as e:
             logger.error(f"Error while querying current for channel {channel}: {e}")
 
@@ -113,7 +113,7 @@ class PowerSupply:
         try:
             await self.send_command(f":MEASure{channel}:POWEr?\n")
             response = await self.receive_response()
-            return float(response)  # Парсинг ответа в float
+            return float(response)
         except Exception as e:
             logger.error(f"Error while querying power for channel {channel}: {e}")
 
