@@ -2,7 +2,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 # Источник питания API
-
+https://www.gwinstek.com/en-global/products/downloadSeriesDownNew/14242/1737
 API для управления и мониторинга источника питания
 
 ## Структура проекта
